@@ -16,7 +16,7 @@ import Tools_translate_class from "./../modules/tools/translate.js";
 import Tools_settings_class from "./../modules/tools/settings.js";
 import Helper_class from "./../libs/helpers.js";
 import alertify from "./../../../node_modules/alertifyjs/build/alertify.min.js";
-import menuDefinition from './../config-menu.js';
+import menuDefinition from "./../config-menu.js";
 
 var instance = null;
 
@@ -211,20 +211,22 @@ class Base_gui_class {
       .getElementById("import")
       .addEventListener("click", function (event) {
         let children = menuDefinition;
-        let file = children.find(c=>c.name==="File");
-		let open = file.children.find(c=>c.name==="Open");
-		let open_url = open.children.find(c=>c.target==="file/open.open_url");
-		console.log(open_url)
-		_this.GUI_menu.emit('select_target', open_url.target, open_url);
+        let file = children.find((c) => c.name === "File");
+        let open = file.children.find((c) => c.name === "Open");
+        let open_url = open.children.find(
+          (c) => c.target === "file/open.open_url"
+        );
+        console.log(open_url);
+        _this.GUI_menu.emit("select_target", open_url.target, open_url);
       });
-	  document
-      .getElementById("save")
-      .addEventListener("click", function (event) {
-        let children = menuDefinition;
-        let file = children.find(c=>c.name==="File");
-		let save_url = file.children.find(c=>c.target==="file/save.save_data_url");
-		_this.GUI_menu.emit('select_target', save_url.target, save_url);
-      });
+    document.getElementById("save").addEventListener("click", function (event) {
+      let children = menuDefinition;
+      let file = children.find((c) => c.name === "File");
+      let save_url = file.children.find(
+        (c) => c.target === "file/save.save_data_url"
+      );
+      _this.GUI_menu.emit("select_target", save_url.target, save_url);
+    });
     window.addEventListener(
       "resize",
       function (event) {
