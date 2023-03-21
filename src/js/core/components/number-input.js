@@ -187,7 +187,6 @@ var Helper = new Helper_class();
             // Constructor
             if (Object.prototype.toString.call(behavior) !== '[object String]') {
                 const definition = behavior || {};
-
                 const classList = el.className;
                 const id = definition.id != null ? definition.id : el.getAttribute('id');
                 const min = definition.min != null ? definition.min : parseFloat(el.getAttribute('min')) || null;

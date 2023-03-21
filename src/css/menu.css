@@ -190,7 +190,7 @@
 .left_mobile_menu { left:0; }
 .right_mobile_menu { right:0; }
 
-@media screen and (max-width:700px) {
+/* @media screen and (max-width:700px) {
 	.mobile_menu {
 		display: block;
 	}
@@ -199,4 +199,4 @@
 		padding-left: 50px;
 		padding-right: 50px;
 	}
-}
+} */

@@ -1,3 +1,6 @@
+import { config } from "process";
+import _config from './../../config.js';
+
 (function ($) {
 
 	const template = `
@@ -119,7 +122,10 @@
 				for (let i = 0; i < count; i++) {
 					const swatch = document.createElement('div');
 					swatch.classList.add('swatch');
-					$(swatch).data('hex', '#ffffff');
+					if(_config.swatches.default[i])
+						$(swatch).data('hex', _config.swatches.default[i]);
+					// else
+					// 	$(swatch).data('hex', '#ffffff');
 					swatches.push(swatch);
 					swatchGroup.appendChild(swatch);
 					if (i === selectedIndex && !readonly) {

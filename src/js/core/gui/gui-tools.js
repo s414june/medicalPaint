@@ -235,7 +235,7 @@ class GUI_tools_class {
 			else if (typeof item == 'number' || (typeof item == 'object' && typeof item.value == 'number')) {
 				//numbers
 				let min = 1;
-				let max = k === 'power' ? 100 : 999;
+				let max = k === 'power' ? 100 : 30;
 				let value = item;
 				let step = null;
 				if (typeof item == 'object') {

@@ -23,7 +23,6 @@ class Layer_merge_class {
 
 		//first layer
 		var previous_layer = this.Base_layers.find_previous(config.layer.id);
-		console.log(previous_layer)
 		var previous_id = previous_layer.id;
 		ctx.globalAlpha = previous_layer.opacity / 100;
 		ctx.globalCompositeOperation = previous_layer.composition;

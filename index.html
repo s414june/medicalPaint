@@ -35,18 +35,27 @@
 		<nav aria-label="Main Menu" class="main_menu" id="main_menu"></nav>
 		
 		<div class="submenu">
-			<a class="logo" href="#">miniPaint</a>
+			<!-- <a class="logo" href="#">miniPaint</a> -->
+			<a class="logo" href="#"></a>
 			<div class="block attributes" id="action_attributes"></div>
-			<button class="undo_button" id="undo_button" type="button">
+			<!-- <button class="undo_button" id="undo_button" type="button">
 				<span class="sr_only">Undo</span>
+			</button> -->
+			<button class="quick_btn" id="undo_button" type="button">
+				<span>Undo</span>
 			</button>
-			<button class="redo_button" id="redo_button" type="button">
-				<!-- <span class="sr_only">Redo</span> -->
+			<button class="quick_btn" id="redo_button" type="button">
 				<span>Redo</span>
+			</button>
+			<button class="quick_btn" id="clear_button" type="button">
+				<span>Clear</span>
 			</button>
 		</div>
 		
-		<div class="sidebar_left" id="tools_container"></div>
+		<div class="sidebar_left" id="tools_container">
+			<span id="import" title="Import file" class="item trn import"></span>
+			<span id="save" title="Save file" class="item trn save"></span>
+		</div>
 
 
 		<div class="middle_area" id="middle_area">
@@ -78,12 +87,12 @@
 				<div class="content" id="toggle_colors"></div>
 			</div>
 			
-			<div class="block" id="info_base">
+			<div class="block d-none" id="info_base">
 				<h2 class="trn toggle toggle-full" data-target="toggle_info">Information</h2>
 				<div class="content" id="toggle_info"></div>
 			</div>
 			
-			<div class="details block" id="details_base">
+			<div class="details block d-none" id="details_base">
 				<h2 class="trn toggle toggle-full" data-target="toggle_details">Layer details</h2>
 				<div class="content details-content" id="toggle_details"></div>
 			</div>
@@ -94,7 +103,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="mobile_menu">
+	<div class="mobile_menu d-none">
 		<button class="left_mobile_menu" id="left_mobile_menu_button" type="button">
 			<span class="sr_only">Toggle Menu</span>
 		</button>
