@@ -836,3 +836,6 @@ canvas {
 .sidebar_left .save:after {
   background-image: url("images/icons/save.svg");
 }
+#pressure {
+  display: none;
+}
