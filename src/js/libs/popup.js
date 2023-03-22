@@ -270,6 +270,7 @@ class Dialog_class {
 	//OK pressed - prepare data and call handlers
 	save() {
 		var params = this.get_params();
+		console.log(params)
 
 		if (this.onfinish) {
 			this.onfinish(params);

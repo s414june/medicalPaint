@@ -846,8 +846,8 @@ canvas {
   background-image: url("images/icons/bezier_curve.svg");
 }
 .sidebar_left .qrcode:after {
-	background-image: url("images/icons/qrcode.svg");
-  }
+  background-image: url("images/icons/qrcode.svg");
+}
 .sidebar_left .import:after {
   background-image: url("images/icons/import.svg");
 }
@@ -857,13 +857,42 @@ canvas {
 #pressure {
   display: none;
 }
-.medical_name{
-	position: relative;
-	height: 2rem;
+.medical_name {
+  position: relative;
+  height: 2rem;
 }
-.medical_name>*{
-	position: absolute;
-	left: 0;
-	font-size: 1.6rem;
-	width: 100vw;
+.medical_name > * {
+  position: absolute;
+  left: 0;
+  font-size: 1.6rem;
+  width: 100vw;
+}
+/* .item.quick{
+	align-items: flex-end;
+	margin-bottom: 5px;
+} */
+.item.size {
+  margin-right: 0;
+}
+.item.size > div {
+  display: none;
+}
+.quick_type {
+  width: 24px;
+  height: 24px;
+  background-color: #aaaaaa;
+  border-radius: 30px;
+}
+.quick_type.small {
+  width: 10px;
+  height: 10px;
+  margin: 0 3px;
+}
+.quick_type.medium {
+  width: 17px;
+  height: 17px;
+  margin: 0 5px;
+}
+.quick_type.active {
+  background-color: var(--background-color-active);
 }

@@ -206,7 +206,6 @@ class Rectangle_class extends Base_tools_class {
 			radius = 0;
 
 		ctx.save();
-
 		//set styles
 		ctx.strokeStyle = 'transparent';
 		ctx.fillStyle = 'transparent';

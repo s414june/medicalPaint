@@ -10,6 +10,7 @@ import Text_class from './../../tools/text.js';
 import Base_layers_class from "../base-layers";
 import Tools_settings_class from './../../modules/tools/settings.js';
 import Helper_class from './../../libs/helpers.js';
+import alertify from './../../../../node_modules/alertifyjs/build/alertify.min.js';
 
 var template = `
 	<div class="row">
@@ -703,6 +704,8 @@ class GUI_details_class {
 				$colorInput.uiColorInput('set_value', config.layer.params[k]);
 
 				item_row.appendChild($colorInput[0]);
+			}
+			else if(k==="quick"){
 			}
 			else {
 				alertify.error('Error: unsupported attribute type:' + typeof item + ', ' + k);
