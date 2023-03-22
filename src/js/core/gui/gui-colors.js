@@ -330,10 +330,11 @@ class GUI_colors_class {
     });
 
     // Restore toggle preference, default to visible for picker
-    const saved_toggle_color_picker = Helper.getCookie("toggle_color_picker");
-    if (saved_toggle_color_picker === 0) {
-      this.buttons.toggleColorPicker.trigger("click");
-    }
+    // const saved_toggle_color_picker = Helper.getCookie("toggle_color_picker");
+    // if (saved_toggle_color_picker === 0) {
+    //   this.buttons.toggleColorPicker.trigger("click");
+    // }
+	this.buttons.toggleColorPicker.trigger("click");
 
     // Handle toggle for color channels section
     this.buttons.toggleColorChannels.on("click", () => {

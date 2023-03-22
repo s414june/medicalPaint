@@ -117,6 +117,21 @@ class GUI_preview_class {
 			else
 				_this.zoom(-1, e);
 		}, false);
+		let temp_x,temp_y = 0;
+		//待辦
+		// document.getElementById('main_wrapper').addEventListener('mousedown', function (e) {
+		// 	//zoom with mouse scroll
+		// 	e.preventDefault();
+		// 	_this.zoom_data.x = e.offsetX;
+		// 	_this.zoom_data.y = e.offsetY;
+		// 	temp_x = e.offsetX
+		// 	console.log(e)
+		// 	var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail || -e.deltaY)));
+		// 	if (delta > 0)
+		// 		_this.zoom(+1, e);
+		// 	else
+		// 		_this.zoom(-1, e);
+		// }, false);
 		window.addEventListener('resize', function (e) {
 			//resize
 			config.need_render = true;

@@ -83,7 +83,7 @@
   position: relative;
   padding: 2px 5px 2px 6px;
   margin: 0;
-  font-size: 110%;
+  font-size: 130%;
   background-color: rgba(255, 255, 255, 0.3);
   background-color: var(--header-background-color);
   border-bottom: #555;
@@ -112,6 +112,9 @@
 }
 .block .content {
   padding: 7.5px 5px;
+}
+.block .content > * {
+  font-size: 1.8rem !important;
 }
 .block_section {
   margin: 0.75rem 0;
@@ -147,24 +150,26 @@ body .sp-preview {
   position: relative;
   display: inline-block;
   height: 30px;
-  /* width: 110px; */
-  padding: 5px 5px 5px 36px;
-  margin: 5px;
+  width: 36px;
+  padding: 7px;
+  margin: 3px;
+  /* margin-right: 10px; */
   font-size: 14px;
   text-decoration: none;
   font-weight: bold;
   color: #ffffff;
   color: var(--text-color);
+  background-color: #ffffff;
 }
 .logo:after {
   position: absolute;
   content: "";
   left: 0;
   top: 0;
-  width: 31px;
+  width: 33px;
   height: 30px;
   background: url("images/logo.jpg") no-repeat center center;
-  background-size: auto 28px;
+  background-size: auto 25px;
   /* filter: var(--mobile-menu-toggle-filter); */
 }
 /* .logo:hover:after {
@@ -194,7 +199,7 @@ body .sp-preview {
   background-color: transparent;
 }
 .quick_btn {
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 /* ========== sub-header ==================================================== */
@@ -233,10 +238,12 @@ body .sp-preview {
 }
 .attributes .item > label {
   margin: 0 0.5rem 0 0;
+  font-size: 2rem;
 }
 .attributes input[type="number"] {
   width: 60px;
   margin-right: 5px;
+  font-size: 1.6rem;
 }
 .attributes input[type="color"] {
   cursor: pointer;
@@ -263,7 +270,8 @@ body .sp-preview {
   margin-right: 5px;
   overflow: hidden;
   align-self: start;
-  width: 40px;
+  /* width: 40px; */
+  width: 60px;
   overflow-y: auto;
   max-height: 100%;
 }
@@ -271,8 +279,10 @@ body .sp-preview {
   position: relative;
   display: block;
   background-color: var(--area-background-color);
-  height: 25px;
-  width: 30px;
+  /* height: 25px; */
+  /* width: 30px; */
+  width: 100%;
+  height: 40px;
   margin: 5px 0 0 5px;
   overflow: hidden;
   cursor: pointer;
@@ -287,7 +297,7 @@ body .sp-preview {
   filter: var(--menu-icons-filter);
   background-position: center center;
   background-repeat: no-repeat;
-  background-size: 20px 20px;
+  background-size: 30px 30px;
 }
 .sidebar_left .item:hover {
   background-color: var(--background-color-hover);
@@ -406,6 +416,7 @@ IMPORTANT: any new icon should also must be added on /service-worker.js + its ve
 }
 .canvas_preview_details button {
   margin: 0;
+  font-size: 1.8rem;
 }
 .preview canvas {
   cursor: pointer;
@@ -456,7 +467,7 @@ IMPORTANT: any new icon should also must be added on /service-worker.js + its ve
 .layers_list .layer_name {
   display: block;
   padding: 1px 5px 3px 5px;
-  height: 19px;
+  height: 25px;
   width: calc(100% - 44px);
   text-align: left;
   overflow: hidden;
@@ -477,6 +488,7 @@ IMPORTANT: any new icon should also must be added on /service-worker.js + its ve
 .layers_list .item.active .layer_name {
   background-color: var(--background-color-active);
   color: var(--text-color-active);
+  font-size: 1.8rem;
 }
 .layers_list .arrow_down {
   position: relative;
@@ -523,16 +535,17 @@ IMPORTANT: any new icon should also must be added on /service-worker.js + its ve
 }
 .layers_list .visible {
   opacity: 0.4;
+  display: none;
 }
 .layers_list .delete {
   float: right;
   cursor: pointer;
   padding: 0px 3px 0px 3px;
-  width: 12px;
-  height: 19px;
+  width: 20px;
+  height: 25px;
   margin-left: 5px;
   background: transparent url(images/icons/delete.svg) no-repeat center center;
-  background-size: 10px 10px;
+  background-size: 15px 15px;
   border: none;
   box-shadow: none;
 }
@@ -623,7 +636,8 @@ IMPORTANT: any new icon should also must be added on /service-worker.js + its ve
   overflow-y: auto;
 }
 
-@media screen and (max-width: 700px) {
+/* @media screen and (max-width: 700px) { */
+@media screen and (max-width: 500px) {
   body {
     padding-top: 50px;
   }
@@ -640,12 +654,12 @@ IMPORTANT: any new icon should also must be added on /service-worker.js + its ve
     left: 0;
     z-index: 3;
   }
-  /* .sidebar_right {
+  .sidebar_right {
     position: absolute;
     height: 100%;
     right: -210px;
     background: var(--background);
-  } */
+  }
   .sidebar_right.active {
     box-shadow: -5px 0px 10px 0px rgba(0, 0, 0, 0.75);
     right: 0;

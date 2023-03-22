@@ -113,14 +113,14 @@ config.TOOLS = [
     name: "brush",
     attributes: {
       size: 10,
-      pressure: false,
+      pressure: true,
     },
   },
   {
     name: "pencil",
     attributes: {
       size: 3,
-      pressure: false,
+      pressure: true,
     },
   },
   // {
