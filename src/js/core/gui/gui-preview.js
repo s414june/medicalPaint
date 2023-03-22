@@ -172,72 +172,72 @@ class GUI_preview_class {
       false
     );
     //待辦
-    document.getElementById("main_wrapper").addEventListener(
-      "touchstart",
-      function (e) {
-        if (e.touches.length < 2) return;
-        //zoom with touch scroll
-        e.preventDefault();
-        e.stopPropagation();
-        var events = e.touches[0];
-        var events2 = e.touches[1];
-        let center_x = (events.pageX + events2.pageX) / 2;
-        let center_y = (events.pageY + events2.pageY) / 2;
-        _this.zoom_data.x = center_x;
-        _this.zoom_data.y = center_y;
-        let zoom_distance = _this.get_distance(
-          {
-            x: events.pageX,
-            y: events.pageY,
-          },
-          {
-            x: events2.pageX,
-            y: events2.pageY,
-          }
-        );
-        _this.zoom_data_touch.start.distance = zoom_distance;
-      },
-      false
-    );
-    document.getElementById("main_wrapper").addEventListener(
-      "touchmove",
-      function (e) {
-        if (e.touches.length < 2) return;
-        //zoom with touch scroll
-        e.preventDefault();
-        e.stopPropagation();
-        var events = e.touches[0];
-        var events2 = e.touches[1];
-        let zoom_distance = _this.get_distance(
-          {
-            x: events.pageX,
-            y: events.pageY,
-          },
-          {
-            x: events2.pageX,
-            y: events2.pageY,
-          }
-        );
-        _this.zoom_data_touch.end.distance = zoom_distance;
-        let delta =
-          _this.zoom_data_touch.end.distance -
-          _this.zoom_data_touch.start.distance;
-        if (Math.abs(delta) < 0.5) return;
-        if (delta > 0) _this.zoom(+1, e);
-        else _this.zoom(-1, e);
-      },
-      false
-    );
-	document.getElementById("main_wrapper").addEventListener(
-		"touchend",
-		function (e) {
-		  if (e.touches.length < 2) return;
-		  //zoom with touch scroll
-		  e.preventDefault();
-		  e.stopPropagation();
-		},
-		false
-	  );
+    // document.getElementById("main_wrapper").addEventListener(
+    //   "touchstart",
+    //   function (e) {
+    //     if (e.touches.length < 2) return;
+    //     //zoom with touch scroll
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     var events = e.touches[0];
+    //     var events2 = e.touches[1];
+    //     let center_x = (events.pageX + events2.pageX) / 2;
+    //     let center_y = (events.pageY + events2.pageY) / 2;
+    //     _this.zoom_data.x = center_x;
+    //     _this.zoom_data.y = center_y;
+    //     let zoom_distance = _this.get_distance(
+    //       {
+    //         x: events.pageX,
+    //         y: events.pageY,
+    //       },
+    //       {
+    //         x: events2.pageX,
+    //         y: events2.pageY,
+    //       }
+    //     );
+    //     _this.zoom_data_touch.start.distance = zoom_distance;
+    //   },
+    //   false
+    // );
+    // document.getElementById("main_wrapper").addEventListener(
+    //   "touchmove",
+    //   function (e) {
+    //     if (e.touches.length < 2) return;
+    //     //zoom with touch scroll
+    //     e.preventDefault();
+    //     e.stopPropagation();
+    //     var events = e.touches[0];
+    //     var events2 = e.touches[1];
+    //     let zoom_distance = _this.get_distance(
+    //       {
+    //         x: events.pageX,
+    //         y: events.pageY,
+    //       },
+    //       {
+    //         x: events2.pageX,
+    //         y: events2.pageY,
+    //       }
+    //     );
+    //     _this.zoom_data_touch.end.distance = zoom_distance;
+    //     let delta =
+    //       _this.zoom_data_touch.end.distance -
+    //       _this.zoom_data_touch.start.distance;
+    //     if (Math.abs(delta) < 0.5) return;
+    //     if (delta > 0) _this.zoom(+1, e);
+    //     else _this.zoom(-1, e);
+    //   },
+    //   false
+    // );
+	// document.getElementById("main_wrapper").addEventListener(
+	// 	"touchend",
+	// 	function (e) {
+	// 	  if (e.touches.length < 2) return;
+	// 	  //zoom with touch scroll
+	// 	  e.preventDefault();
+	// 	  e.stopPropagation();
+	// 	},
+	// 	false
+	//   );
     window.addEventListener(
       "resize",
       function (e) {
