@@ -49,12 +49,10 @@ class GUI_preview_class {
 
     this.zoom_data_touch = {
       start: {
-        x: 0,
-        y: 0,
+        distance: 0,
       },
       end: {
-        x: 0,
-        y: 0,
+        distance: 0,
       },
     };
 
@@ -180,8 +178,23 @@ class GUI_preview_class {
         if (e.touches.length < 2) return;
         //zoom with touch scroll
         e.preventDefault();
-        _this.zoom_data_touch.start.x = e.offsetX;
-        _this.zoom_data_touch.start.y = e.offsetY;
+        var events = e.touches[0];
+        var events2 = e.touches[1];
+        let center_x = (events.pageX + events2.pageX) / 2;
+        let center_y = (events.pageY + events2.pageY) / 2;
+        _this.zoom_data.x = center_x;
+        _this.zoom_data.y = center_y;
+        let zoom_distance = _this.get_distance(
+          {
+            x: events.pageX,
+            y: events.pageY,
+          },
+          {
+            x: events2.pageX,
+            y: events2.pageY,
+          }
+        );
+        _this.zoom_data_touch.start.distance = zoom_distance;
       },
       false
     );
@@ -191,27 +204,24 @@ class GUI_preview_class {
         if (e.touches.length < 2) return;
         //zoom with touch scroll
         e.preventDefault();
-        _this.zoom_data_touch.end.x = e.offsetX;
-        _this.zoom_data_touch.end.y = e.offsetY;
-		let zoom_distance = getDistance({
-			x:_this.zoom_data_touch.start.x,
-			y:_this.zoom_data_touch.start.x,
-		},
-		{
-			x:_this.zoom_data_touch.end.x,
-			y:_this.zoom_data_touch.end.x,
-		});
-		if(zoom_distance>1){
-			_this.zoom(+1, e);
-		}
-		else{
-			_this.zoom(-1, e);
-		}
-		_this.zoom_data_touch.start.x = e.offsetX;
-        _this.zoom_data_touch.start.y = e.offsetY;
-		var getDistance = function (start, stop) {
-			return Math.hypot(stop.x - start.x, stop.y - start.y);
-		};
+        var events = e.touches[0];
+        var events2 = e.touches[1];
+        let zoom_distance = _this.get_distance(
+          {
+            x: events.pageX,
+            y: events.pageY,
+          },
+          {
+            x: events2.pageX,
+            y: events2.pageY,
+          }
+        );
+        _this.zoom_data_touch.end.distance = zoom_distance;
+        let delta =
+          _this.zoom_data_touch.end.distance -
+          _this.zoom_data_touch.start.distance;
+        if (delta > 0) _this.zoom(+1, e);
+        else _this.zoom(-1, e);
       },
       false
     );
@@ -457,6 +467,9 @@ class GUI_preview_class {
     zoom_data.move_pos.y = parseInt(y);
 
     config.need_render = true;
+  }
+  get_distance(start, stop) {
+    return Math.hypot(stop.x - start.x, stop.y - start.y);
   }
 }
 
