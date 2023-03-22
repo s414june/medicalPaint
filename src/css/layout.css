@@ -638,9 +638,9 @@ IMPORTANT: any new icon should also must be added on /service-worker.js + its ve
 
 /* @media screen and (max-width: 700px) { */
 @media screen and (max-width: 500px) {
-  body {
+  /* body {
     padding-top: 50px;
-  }
+  } */
   /* .wrapper {
     top: 50px;
   } */
@@ -845,6 +845,9 @@ canvas {
 .sidebar_left .bezier_curve:after {
   background-image: url("images/icons/bezier_curve.svg");
 }
+.sidebar_left .qrcode:after {
+	background-image: url("images/icons/qrcode.svg");
+  }
 .sidebar_left .import:after {
   background-image: url("images/icons/import.svg");
 }
@@ -853,4 +856,14 @@ canvas {
 }
 #pressure {
   display: none;
+}
+.medical_name{
+	position: relative;
+	height: 2rem;
+}
+.medical_name>*{
+	position: absolute;
+	left: 0;
+	font-size: 1.6rem;
+	width: 100vw;
 }
