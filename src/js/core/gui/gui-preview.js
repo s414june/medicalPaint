@@ -178,6 +178,7 @@ class GUI_preview_class {
         if (e.touches.length < 2) return;
         //zoom with touch scroll
         e.preventDefault();
+        e.stopPropagation();
         var events = e.touches[0];
         var events2 = e.touches[1];
         let center_x = (events.pageX + events2.pageX) / 2;
@@ -204,6 +205,7 @@ class GUI_preview_class {
         if (e.touches.length < 2) return;
         //zoom with touch scroll
         e.preventDefault();
+        e.stopPropagation();
         var events = e.touches[0];
         var events2 = e.touches[1];
         let zoom_distance = _this.get_distance(
@@ -220,6 +222,7 @@ class GUI_preview_class {
         let delta =
           _this.zoom_data_touch.end.distance -
           _this.zoom_data_touch.start.distance;
+        if (Math.abs(delta) < 0.1) return;
         if (delta > 0) _this.zoom(+1, e);
         else _this.zoom(-1, e);
       },
