@@ -35,7 +35,6 @@ class Edit_undo_class {
         const count = _this.Base_state.action_history.length - 1;
         for (let i = count; i >= 0; i--) {
           let now_history = _this.Base_state.action_history[i];
-		  console.log(now_history)
           if (now_history.action_id === "open_file_url") break;
           _this.Base_state.undo();
         }

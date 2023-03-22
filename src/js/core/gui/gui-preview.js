@@ -3,8 +3,8 @@
  * author: Vilius L.
  */
 
-import config from './../../config.js';
-import Base_layers_class from './../base-layers.js';
+import config from "./../../config.js";
+import Base_layers_class from "./../base-layers.js";
 
 var instance = null;
 
@@ -28,340 +28,436 @@ var template = `
  * GUI class responsible for rendering preview on right sidebar
  */
 class GUI_preview_class {
+  constructor(GUI_class) {
+    //singleton
+    if (instance) {
+      return instance;
+    }
+    instance = this;
+    document.getElementById("toggle_preview").innerHTML = template;
 
-	constructor(GUI_class) {
-		//singleton
-		if (instance) {
-			return instance;
+    // preview mini window size on right sidebar
+    this.PREVIEW_SIZE = { w: 176, h: 100 };
+
+    this.canvas_offset = { x: 0, y: 0 };
+
+    this.zoom_data = {
+      x: 0,
+      y: 0,
+      move_pos: null,
+    };
+
+    this.zoom_data_touch = {
+      start: {
+        x: 0,
+        y: 0,
+      },
+      end: {
+        x: 0,
+        y: 0,
+      },
+    };
+
+    this.mouse_pressed = false;
+    this.canvas_preview = null;
+    if (GUI_class != undefined) {
+      this.GUI = GUI_class;
+    }
+    this.Base_layers = new Base_layers_class();
+  }
+
+  render_main_preview() {
+    this.canvas_preview = document
+      .getElementById("canvas_preview")
+      .getContext("2d");
+
+    this.prepare_canvas();
+    config.need_render = true;
+    this.set_events();
+  }
+
+  set_events() {
+    var _this = this;
+    var is_touch = false;
+
+    document.addEventListener(
+      "mousedown",
+      function (e) {
+        _this.mouse_pressed = true;
+      },
+      false
+    );
+    document.addEventListener(
+      "mouseup",
+      function (e) {
+        _this.mouse_pressed = false;
+      },
+      false
+    );
+    document.addEventListener(
+      "touchstart",
+      function (e) {
+        _this.mouse_pressed = true;
+      },
+      false
+    );
+    document.addEventListener(
+      "touchend",
+      function (e) {
+        _this.mouse_pressed = false;
+      },
+      false
+    );
+    document.getElementById("zoom_range").addEventListener(
+      "input",
+      function (e) {
+        _this.set_center_zoom();
+        _this.zoom(this.value);
+      },
+      false
+    );
+    document.getElementById("zoom_range").addEventListener(
+      "change",
+      function (e) {
+        //IE11
+        if (this.value != config.ZOOM * 100) {
+          _this.set_center_zoom();
+          _this.zoom(this.value);
+        }
+      },
+      false
+    );
+    document.getElementById("zoom_less").addEventListener(
+      "click",
+      function (e) {
+        _this.set_center_zoom();
+        _this.zoom(-1);
+      },
+      false
+    );
+    document.getElementById("zoom_100").addEventListener(
+      "click",
+      function (e) {
+        _this.zoom(100);
+      },
+      false
+    );
+    document.getElementById("zoom_more").addEventListener(
+      "click",
+      function (e) {
+        _this.set_center_zoom();
+        _this.zoom(+1);
+      },
+      false
+    );
+    document.getElementById("zoom_fit").addEventListener(
+      "click",
+      function (e) {
+        _this.zoom_auto();
+      },
+      false
+    );
+    document.getElementById("main_wrapper").addEventListener(
+      "wheel",
+      function (e) {
+        //zoom with mouse scroll
+        e.preventDefault();
+        _this.zoom_data.x = e.offsetX;
+        _this.zoom_data.y = e.offsetY;
+        var delta = Math.max(
+          -1,
+          Math.min(1, e.wheelDelta || -e.detail || -e.deltaY)
+        );
+        if (delta > 0) _this.zoom(+1, e);
+        else _this.zoom(-1, e);
+      },
+      false
+    );
+    //待辦
+    document.getElementById("main_wrapper").addEventListener(
+      "touchstart",
+      function (e) {
+        if (e.touches.length < 2) return;
+        //zoom with touch scroll
+        e.preventDefault();
+        _this.zoom_data_touch.start.x = e.offsetX;
+        _this.zoom_data_touch.start.y = e.offsetY;
+      },
+      false
+    );
+    document.getElementById("main_wrapper").addEventListener(
+      "touchmove",
+      function (e) {
+        if (e.touches.length < 2) return;
+        //zoom with touch scroll
+        e.preventDefault();
+        _this.zoom_data_touch.end.x = e.offsetX;
+        _this.zoom_data_touch.end.y = e.offsetY;
+		let zoom_distance = getDistance({
+			x:_this.zoom_data_touch.start.x,
+			y:_this.zoom_data_touch.start.x,
+		},
+		{
+			x:_this.zoom_data_touch.end.x,
+			y:_this.zoom_data_touch.end.x,
+		});
+		if(zoom_distance>1){
+			_this.zoom(+1, e);
 		}
-		instance = this;
-		document.getElementById('toggle_preview').innerHTML = template;
-
-		// preview mini window size on right sidebar
-		this.PREVIEW_SIZE = {w: 176, h: 100};
-
-		this.canvas_offset = {x: 0, y: 0};
-
-		this.zoom_data = {
-			x: 0,
-			y: 0,
-			move_pos: null,
+		else{
+			_this.zoom(-1, e);
+		}
+		_this.zoom_data_touch.start.x = e.offsetX;
+        _this.zoom_data_touch.start.y = e.offsetY;
+		var getDistance = function (start, stop) {
+			return Math.hypot(stop.x - start.x, stop.y - start.y);
 		};
+      },
+      false
+    );
+    window.addEventListener(
+      "resize",
+      function (e) {
+        //resize
+        config.need_render = true;
+      },
+      false
+    );
+    document.getElementById("canvas_preview").addEventListener(
+      "mousedown",
+      function (e) {
+        if (is_touch) return;
+        _this.set_zoom_position(e);
+      },
+      false
+    );
+    document.getElementById("canvas_preview").addEventListener(
+      "mousemove",
+      function (e) {
+        if (is_touch) return;
+        if (_this.mouse_pressed == false) return;
+        _this.set_zoom_position(e);
+      },
+      false
+    );
 
-		this.mouse_pressed = false;
-		this.canvas_preview = null;
-		if (GUI_class != undefined) {
-			this.GUI = GUI_class;
-		}
-		this.Base_layers = new Base_layers_class();
-	}
+    document
+      .getElementById("canvas_preview")
+      .addEventListener("touchstart", function (e) {
+        is_touch = true;
 
-	render_main_preview() {
-		this.canvas_preview = document.getElementById("canvas_preview")
-			.getContext("2d");
+        //calc canvas position offset
+        var bodyRect = document.body.getBoundingClientRect();
+        var canvas_el = document
+          .getElementById("canvas_preview")
+          .getBoundingClientRect();
+        _this.canvas_offset.x = canvas_el.left - bodyRect.left;
+        _this.canvas_offset.y = canvas_el.top - bodyRect.top;
 
-		this.prepare_canvas();
-		config.need_render = true;
-		this.set_events();
-	}
+        //change zoom offset
+        _this.set_zoom_position(e);
+      });
+    document
+      .getElementById("canvas_preview")
+      .addEventListener("touchmove", function (e) {
+        //change zoom offset
+        if (_this.mouse_pressed == false) return;
+        _this.set_zoom_position(e);
+      });
+  }
 
-	set_events() {
-		var _this = this;
-		var is_touch = false;
+  prepare_canvas() {
+    this.canvas_preview.webkitImageSmoothingEnabled = false;
+    this.canvas_preview.msImageSmoothingEnabled = false;
+    this.canvas_preview.imageSmoothingEnabled = false;
+    this.GUI.render_canvas_background("canvas_preview", 8);
+  }
 
-		document.addEventListener('mousedown', function (e) {
-			_this.mouse_pressed = true;
-		}, false);
-		document.addEventListener('mouseup', function (e) {
-			_this.mouse_pressed = false;
-		}, false);
-		document.addEventListener('touchstart', function (e) {
-			_this.mouse_pressed = true;
-		}, false);
-		document.addEventListener('touchend', function (e) {
-			_this.mouse_pressed = false;
-		}, false);
-		document.getElementById('zoom_range').addEventListener('input', function (e) {
-			_this.set_center_zoom();
-			_this.zoom(this.value);
-		}, false);
-		document.getElementById('zoom_range').addEventListener('change', function (e) {
-			//IE11
-			if (this.value != config.ZOOM * 100) {
-				_this.set_center_zoom();
-				_this.zoom(this.value);
-			}
-		}, false);
-		document.getElementById('zoom_less').addEventListener('click', function (e) {
-			_this.set_center_zoom();
-			_this.zoom(-1);
-		}, false);
-		document.getElementById('zoom_100').addEventListener('click', function (e) {
-			_this.zoom(100);
-		}, false);
-		document.getElementById('zoom_more').addEventListener('click', function (e) {
-			_this.set_center_zoom();
-			_this.zoom(+1);
-		}, false);
-		document.getElementById('zoom_fit').addEventListener('click', function (e) {
-			_this.zoom_auto();
-		}, false);
-		document.getElementById('main_wrapper').addEventListener('wheel', function (e) {
-			//zoom with mouse scroll
-			e.preventDefault();
-			_this.zoom_data.x = e.offsetX;
-			_this.zoom_data.y = e.offsetY;
-			var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail || -e.deltaY)));
-			if (delta > 0)
-				_this.zoom(+1, e);
-			else
-				_this.zoom(-1, e);
-		}, false);
-		let temp_x,temp_y = 0;
-		//待辦
-		// document.getElementById('main_wrapper').addEventListener('mousedown', function (e) {
-		// 	//zoom with mouse scroll
-		// 	e.preventDefault();
-		// 	_this.zoom_data.x = e.offsetX;
-		// 	_this.zoom_data.y = e.offsetY;
-		// 	temp_x = e.offsetX
-		// 	console.log(e)
-		// 	var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail || -e.deltaY)));
-		// 	if (delta > 0)
-		// 		_this.zoom(+1, e);
-		// 	else
-		// 		_this.zoom(-1, e);
-		// }, false);
-		window.addEventListener('resize', function (e) {
-			//resize
-			config.need_render = true;
-		}, false);
-		document.getElementById("canvas_preview").addEventListener('mousedown', function (e) {
-			if(is_touch)
-				return;
-			_this.set_zoom_position(e);
-		}, false);
-		document.getElementById("canvas_preview").addEventListener('mousemove', function (e) {
-			if(is_touch)
-				return;
-			if (_this.mouse_pressed == false)
-				return;
-			_this.set_zoom_position(e);
-		}, false);
+  render_preview_active_zone() {
+    if (this.canvas_preview == undefined) {
+      this.canvas_preview = document
+        .getElementById("canvas_preview")
+        .getContext("2d");
+    }
 
-		document.getElementById("canvas_preview").addEventListener('touchstart', function (e) {
-			is_touch = true;
+    //active zone
+    var visible_w = config.visible_width / config.ZOOM;
+    var visible_h = config.visible_height / config.ZOOM;
 
-			//calc canvas position offset
-			var bodyRect = document.body.getBoundingClientRect();
-			var canvas_el = document.getElementById("canvas_preview").getBoundingClientRect();
-			_this.canvas_offset.x = canvas_el.left - bodyRect.left;
-			_this.canvas_offset.y = canvas_el.top - bodyRect.top;
+    var mini_rect_w = (this.PREVIEW_SIZE.w * visible_w) / config.WIDTH;
+    var mini_rect_h = (this.PREVIEW_SIZE.h * visible_h) / config.HEIGHT;
 
-			//change zoom offset
-			_this.set_zoom_position(e);
-		});
-		document.getElementById("canvas_preview").addEventListener('touchmove', function (e) {
-			//change zoom offset
-			if (_this.mouse_pressed == false)
-				return;
-			_this.set_zoom_position(e);
-		});
-	}
+    var start_pos = this.Base_layers.get_world_coords(0, 0);
+    var mini_rect_x = (start_pos.x / config.WIDTH) * this.PREVIEW_SIZE.w;
+    var mini_rect_y = (start_pos.y / config.HEIGHT) * this.PREVIEW_SIZE.h;
 
-	prepare_canvas() {
-		this.canvas_preview.webkitImageSmoothingEnabled = false;
-		this.canvas_preview.msImageSmoothingEnabled = false;
-		this.canvas_preview.imageSmoothingEnabled = false;
-		this.GUI.render_canvas_background('canvas_preview', 8);
-	}
+    //validate
+    mini_rect_x = Math.max(0, mini_rect_x);
+    mini_rect_y = Math.max(0, mini_rect_y);
+    mini_rect_w = Math.min(this.PREVIEW_SIZE.w - 1, mini_rect_w);
+    mini_rect_h = Math.min(this.PREVIEW_SIZE.h - 1, mini_rect_h);
+    if (mini_rect_x + mini_rect_w > this.PREVIEW_SIZE.w)
+      mini_rect_x = this.PREVIEW_SIZE.w - mini_rect_w;
+    if (mini_rect_y + mini_rect_h > this.PREVIEW_SIZE.h)
+      mini_rect_y = this.PREVIEW_SIZE.h - mini_rect_h;
 
-	render_preview_active_zone() {
-		if (this.canvas_preview == undefined) {
-			this.canvas_preview = document.getElementById("canvas_preview")
-				.getContext("2d");
-		}
+    if (
+      mini_rect_x == 0 &&
+      mini_rect_y == 0 &&
+      mini_rect_w == this.PREVIEW_SIZE.w - 1 &&
+      mini_rect_h == this.PREVIEW_SIZE.h - 1
+    ) {
+      //everything is visible
+      return;
+    }
 
-		//active zone
-		var visible_w = config.visible_width / config.ZOOM;
-		var visible_h = config.visible_height / config.ZOOM;
+    //draw selected area in preview canvas
+    this.canvas_preview.lineWidth = 1;
+    this.canvas_preview.beginPath();
+    this.canvas_preview.rect(
+      Math.round(mini_rect_x) + 0.5,
+      Math.round(mini_rect_y) + 0.5,
+      mini_rect_w,
+      mini_rect_h
+    );
+    this.canvas_preview.fillStyle = "rgba(0, 255, 0, 0.3)";
+    this.canvas_preview.strokeStyle = "#00ff00";
+    this.canvas_preview.fill();
+    this.canvas_preview.stroke();
+  }
 
-		var mini_rect_w = this.PREVIEW_SIZE.w * visible_w / config.WIDTH;
-		var mini_rect_h = this.PREVIEW_SIZE.h * visible_h / config.HEIGHT;
+  async zoom(recalc) {
+    if (recalc != undefined) {
+      //zoom-in or zoom-out
+      if (recalc == 1 || recalc == -1) {
+        //fix
+        if (config.ZOOM > 1 && config.ZOOM < 1.5) {
+          config.ZOOM = 1;
+        }
+        if (config.ZOOM > 0.9 && config.ZOOM < 1) {
+          config.ZOOM = 1;
+        }
 
-		var start_pos = this.Base_layers.get_world_coords(0, 0);
-		var mini_rect_x = start_pos.x / config.WIDTH * this.PREVIEW_SIZE.w;
-		var mini_rect_y = start_pos.y / config.HEIGHT * this.PREVIEW_SIZE.h;
+        //calc step
+        if (recalc < 0) {
+          //down
+          if (config.ZOOM > 3) {
+            //infinity -> 300%
+            config.ZOOM -= 1;
+          } else if (config.ZOOM > 1) {
+            //300% -> 100%
+            config.ZOOM -= 0.5;
+          } else if (config.ZOOM > 0.1) {
+            //100% -> 10%
+            config.ZOOM -= 0.1;
+          } else {
+            //10% -> 1%
+            config.ZOOM -= 0.01;
+          }
+        } else {
+          //up
+          if (config.ZOOM < 0.1) {
+            //1% -> 10%
+            config.ZOOM += 0.01;
+          } else if (config.ZOOM < 1) {
+            //10% -> 100%
+            config.ZOOM += 0.1;
+          } else if (config.ZOOM < 3) {
+            //100% -> 300%
+            config.ZOOM += 0.5;
+          } else {
+            //300% -> more
+            config.ZOOM += 1;
+          }
+        }
+      } else {
+        //zoom using exact value
+        config.ZOOM = recalc / 100;
+      }
+      config.ZOOM = Math.round(config.ZOOM * 100) / 100;
+      config.ZOOM = Math.max(config.ZOOM, 0.01);
+      config.ZOOM = Math.min(config.ZOOM, 500);
+    }
 
-		//validate
-		mini_rect_x = Math.max(0, mini_rect_x);
-		mini_rect_y = Math.max(0, mini_rect_y);
-		mini_rect_w = Math.min(this.PREVIEW_SIZE.w - 1, mini_rect_w);
-		mini_rect_h = Math.min(this.PREVIEW_SIZE.h - 1, mini_rect_h);
-		if (mini_rect_x + mini_rect_w > this.PREVIEW_SIZE.w)
-			mini_rect_x = this.PREVIEW_SIZE.w - mini_rect_w;
-		if (mini_rect_y + mini_rect_h > this.PREVIEW_SIZE.h)
-			mini_rect_y = this.PREVIEW_SIZE.h - mini_rect_h;
+    document.getElementById("zoom_100").innerHTML =
+      Math.round(config.ZOOM * 100) + "%";
+    document.getElementById("zoom_range").value = config.ZOOM * 100;
 
-		if (mini_rect_x == 0 && mini_rect_y == 0 && mini_rect_w == this.PREVIEW_SIZE.w - 1
-			&& mini_rect_h == this.PREVIEW_SIZE.h - 1) {
-			//everything is visible
-			return;
-		}
+    config.need_render = true;
+    this.GUI.prepare_canvas();
 
-		//draw selected area in preview canvas
-		this.canvas_preview.lineWidth = 1;
-		this.canvas_preview.beginPath();
-		this.canvas_preview.rect(
-			Math.round(mini_rect_x) + 0.5,
-			Math.round(mini_rect_y) + 0.5,
-			mini_rect_w,
-			mini_rect_h
-			);
-		this.canvas_preview.fillStyle = "rgba(0, 255, 0, 0.3)";
-		this.canvas_preview.strokeStyle = "#00ff00";
-		this.canvas_preview.fill();
-		this.canvas_preview.stroke();
-	}
+    //sleep after last image import, it maybe not be finished yet
+    await new Promise((r) => setTimeout(r, 10));
 
-	async zoom(recalc) {
-		if (recalc != undefined) {
-			//zoom-in or zoom-out
-			if (recalc == 1 || recalc == -1) {
-				//fix
-				if (config.ZOOM > 1 && config.ZOOM < 1.5) {
-					config.ZOOM = 1;
-				}
-				if (config.ZOOM > 0.9 && config.ZOOM < 1) {
-					config.ZOOM = 1;
-				}
+    return true;
+  }
 
-				//calc step
-				if (recalc < 0) {
-					//down
-					if (config.ZOOM > 3) {
-						//infinity -> 300%
-						config.ZOOM -= 1;
-					}
-					else if (config.ZOOM > 1) {
-						//300% -> 100%
-						config.ZOOM -= 0.5;
-					}
-					else if (config.ZOOM > 0.1) {
-						//100% -> 10%
-						config.ZOOM -= 0.1;
-					}
-					else {
-						//10% -> 1%
-						config.ZOOM -= 0.01;
-					}
-				}
-				else {
-					//up
-					if (config.ZOOM < 0.1) {
-						//1% -> 10%
-						config.ZOOM += 0.01;
-					}
-					else if (config.ZOOM < 1) {
-						//10% -> 100%
-						config.ZOOM += 0.1;
-					}
-					else if (config.ZOOM < 3) {
-						//100% -> 300%
-						config.ZOOM += 0.5;
-					}
-					else {
-						//300% -> more
-						config.ZOOM += 1;
-					}
-				}
-			}
-			else {
-				//zoom using exact value
-				config.ZOOM = recalc / 100;
-			}
-			config.ZOOM = Math.round(config.ZOOM * 100) / 100;
-			config.ZOOM = Math.max(config.ZOOM, 0.01);
-			config.ZOOM = Math.min(config.ZOOM, 500);
-		}
+  zoom_auto(only_increase) {
+    var container = document.getElementById("main_wrapper");
+    var page_w = container.clientWidth;
+    var page_h = container.clientHeight;
 
-		document.getElementById("zoom_100").innerHTML = Math.round(config.ZOOM * 100) + '%';
-		document.getElementById("zoom_range").value = (config.ZOOM * 100);
+    var best_width = page_w / config.WIDTH;
+    var best_height = page_h / config.HEIGHT;
+    var best_zoom = null;
 
-		config.need_render = true;
-		this.GUI.prepare_canvas();
+    best_zoom = Math.min(best_width, best_height);
 
-		//sleep after last image import, it maybe not be finished yet
-		await new Promise(r => setTimeout(r, 10));
+    if (only_increase != undefined && best_zoom > 1) {
+      return false;
+    }
 
-		return true;
-	}
+    this.zoom(Math.min(best_width, best_height) * 100);
+  }
 
-	zoom_auto(only_increase) {
-		var container = document.getElementById('main_wrapper');
-		var page_w = container.clientWidth;
-		var page_h = container.clientHeight;
+  set_center_zoom() {
+    this.zoom_data.x = config.visible_width / 2;
+    this.zoom_data.y = config.visible_height / 2;
+  }
 
-		var best_width = page_w / config.WIDTH;
-		var best_height = page_h / config.HEIGHT;
-		var best_zoom = null;
+  set_zoom_position(event) {
+    var mouse_x = event.offsetX;
+    var mouse_y = event.offsetY;
+    if (event.changedTouches) {
+      //touch events
+      event = event.changedTouches[0];
 
-		best_zoom = Math.min(best_width, best_height);
+      mouse_x = event.pageX - this.canvas_offset.x;
+      mouse_y = event.pageY - this.canvas_offset.y;
+    }
 
-		if (only_increase != undefined && best_zoom > 1) {
-			return false;
-		}
+    var visible_w = config.visible_width / config.ZOOM;
+    var visible_h = config.visible_height / config.ZOOM;
+    var mini_w = (this.PREVIEW_SIZE.w * visible_w) / config.WIDTH;
+    var mini_h = (this.PREVIEW_SIZE.h * visible_h) / config.HEIGHT;
 
-		this.zoom(Math.min(best_width, best_height) * 100);
-	}
+    var change_x =
+      ((mouse_x - mini_w / 2) / this.PREVIEW_SIZE.w) * config.WIDTH;
+    var change_y =
+      ((mouse_y - mini_h / 2) / this.PREVIEW_SIZE.h) * config.HEIGHT;
 
-	set_center_zoom() {
-		this.zoom_data.x = config.visible_width / 2;
-		this.zoom_data.y = config.visible_height / 2;
-	}
+    var zoom_data = this.zoom_data;
+    zoom_data.move_pos = {};
+    zoom_data.move_pos.x = change_x;
+    zoom_data.move_pos.y = change_y;
 
-	set_zoom_position(event) {
-		var mouse_x = event.offsetX;
-		var mouse_y = event.offsetY;
-		if (event.changedTouches) {
-			//touch events
-			event = event.changedTouches[0];
+    config.need_render = true;
+  }
 
-			mouse_x = event.pageX - this.canvas_offset.x;
-			mouse_y = event.pageY - this.canvas_offset.y;
-		}
+  /**
+   * moves visible area to new position.
+   *
+   * @param {int} x global offset
+   * @param {int} y global offset
+   */
+  zoom_to_position(x, y) {
+    var zoom_data = this.zoom_data;
+    zoom_data.move_pos = {};
+    zoom_data.move_pos.x = parseInt(x);
+    zoom_data.move_pos.y = parseInt(y);
 
-		var visible_w = config.visible_width / config.ZOOM;
-		var visible_h = config.visible_height / config.ZOOM;
-		var mini_w = this.PREVIEW_SIZE.w * visible_w / config.WIDTH;
-		var mini_h = this.PREVIEW_SIZE.h * visible_h / config.HEIGHT;
-
-		var change_x = (mouse_x - mini_w / 2) / this.PREVIEW_SIZE.w * config.WIDTH;
-		var change_y = (mouse_y - mini_h / 2) / this.PREVIEW_SIZE.h * config.HEIGHT;
-
-		var zoom_data = this.zoom_data;
-		zoom_data.move_pos = {};
-		zoom_data.move_pos.x = change_x;
-		zoom_data.move_pos.y = change_y;
-
-		config.need_render = true;
-	}
-	
-	/**
-	 * moves visible area to new position.
-	 * 
-	 * @param {int} x global offset
-	 * @param {int} y global offset
-	 */
-	zoom_to_position(x, y) {
-		var zoom_data = this.zoom_data;		
-		zoom_data.move_pos = {};
-		zoom_data.move_pos.x = parseInt(x);
-		zoom_data.move_pos.y = parseInt(y);
-		
-		config.need_render = true;
-	}
-	
+    config.need_render = true;
+  }
 }
 
 export default GUI_preview_class;

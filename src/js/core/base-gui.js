@@ -216,7 +216,6 @@ class Base_gui_class {
         let open_url = open.children.find(
           (c) => c.target === "file/open.open_url"
         );
-        console.log(open_url);
         _this.GUI_menu.emit("select_target", open_url.target, open_url);
       });
     document.getElementById("save").addEventListener("click", function (event) {

@@ -252,7 +252,6 @@ class GUI_menu_class {
 			if (hasPopup) {
 				this.toggle_dropdown(target, event.isTrusted);
 			} else {
-				console.log(target)
 				this.trigger_link(target);
 			}
 		} else {
@@ -292,8 +291,6 @@ class GUI_menu_class {
 			children = children[childIndex].children;
 		}
 		let definition = children[index];
-		console.log(level,index)
-		console.log(definition)
 
 		// Close the dropdown
 		this.close_child_dropdowns(0);
