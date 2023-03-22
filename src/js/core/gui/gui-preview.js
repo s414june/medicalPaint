@@ -222,12 +222,22 @@ class GUI_preview_class {
         let delta =
           _this.zoom_data_touch.end.distance -
           _this.zoom_data_touch.start.distance;
-        if (Math.abs(delta) < 0.1) return;
+        if (Math.abs(delta) < 0.5) return;
         if (delta > 0) _this.zoom(+1, e);
         else _this.zoom(-1, e);
       },
       false
     );
+	document.getElementById("main_wrapper").addEventListener(
+		"touchend",
+		function (e) {
+		  if (e.touches.length < 2) return;
+		  //zoom with touch scroll
+		  e.preventDefault();
+		  e.stopPropagation();
+		},
+		false
+	  );
     window.addEventListener(
       "resize",
       function (e) {
