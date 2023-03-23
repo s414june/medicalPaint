@@ -894,7 +894,7 @@ canvas {
   background-color: var(--background-color-active);
 }
 .border,
-/* .fill, */
+.fill,
 .size,
 .border_color,
 .border_size,

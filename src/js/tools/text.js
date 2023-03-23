@@ -31,6 +31,7 @@ export const metaDefaults = {
 	underline: false,
 	strikethrough: false,
 	fill_color: '#008800',
+	color:config.COLOR,
 	stroke_size: 0,
 	stroke_color: '#000000'
 };
@@ -1666,7 +1667,8 @@ class Text_editor_class {
 							' ' + (bold ? 'bold' : '') +
 							' ' + Math.round(span.meta.size || metaDefaults.size) + 'px' +
 							' ' + family;
-						const fill_color = span.meta.fill_color || metaDefaults.fill_color;
+						// const fill_color = span.meta.fill_color || metaDefaults.fill_color;
+						const fill_color = layer.color;
 						let fillStyle;
 						if (fill_color.startsWith('#')) {
 							fillStyle = fill_color;
