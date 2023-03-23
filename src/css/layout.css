@@ -896,15 +896,16 @@ canvas {
 .border,
 /* .fill, */
 .size,
-.border_color,
+/* .border_color, */
 .border_size,
 .stroke,
 .stroke_size,
 .kerning,
 .leading,
-/* .fill_color, */
+.fill_color,
 .radius,
-.square {
+.square,
+.ui_toggle_button {
   display: none !important;
 }
 
