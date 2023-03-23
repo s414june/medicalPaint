@@ -115,7 +115,7 @@ class Base_gui_class {
     var snap_cookie = this.Helper.getCookie("snap");
     if (snap_cookie === null) {
       //default
-      config.SNAP = true;
+      config.SNAP = false;
     } else {
       config.SNAP = Boolean(snap_cookie);
     }
