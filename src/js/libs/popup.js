@@ -251,7 +251,6 @@ class Dialog_class {
 					this.preview_padding, this.preview_padding,
 					this.width_mini - this.preview_padding * 2, this.height_mini - this.preview_padding * 2
 				);
-
 				this.onchange(params, ctx_right, this.width_mini, this.height_mini, canvas_right);
 			}
 			else {
@@ -270,7 +269,6 @@ class Dialog_class {
 	//OK pressed - prepare data and call handlers
 	save() {
 		var params = this.get_params();
-		console.log(params)
 
 		if (this.onfinish) {
 			this.onfinish(params);

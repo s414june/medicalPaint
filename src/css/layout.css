@@ -874,9 +874,6 @@ canvas {
 .item.size {
   margin-right: 0;
 }
-.item.size > div {
-  display: none;
-}
 .quick_type {
   width: 24px;
   height: 24px;
@@ -896,3 +893,29 @@ canvas {
 .quick_type.active {
   background-color: var(--background-color-active);
 }
+.border,
+/* .fill, */
+.size,
+.border_color,
+.border_size,
+.stroke,
+.stroke_size,
+.kerning,
+.leading,
+/* .fill_color, */
+.radius,
+.square {
+  display: none !important;
+}
+
+/* .border,
+.fill,
+.fill_color,
+.radius,
+.square {
+  display: none !important;
+} */
+/* 
+#popups{
+  display: none !important;
+} */

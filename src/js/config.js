@@ -165,20 +165,25 @@ config.TOOLS = [
   // 		contiguous: false,
   // 	},
   // },
-  {
-    name: "shape",
-    on_activate: "on_activate",
-    title: "Shapes (H)",
-    attributes: {
-      size: 3,
-      stroke: "#00aa00",
-    },
-  },
+  // {
+  //   name: "shape",
+  //   on_activate: "on_activate",
+  //   title: "Shapes (H)",
+  //   attributes: {
+  //     size: 3,
+  //     stroke: "#00aa00",
+  //   },
+  // },
   {
     name: "line",
     // visible: false,
     attributes: {
       size: 4,
+      quick:{
+        small: 2,
+        medium: 5,
+        large: 8
+      },
     },
   },
   {
@@ -186,6 +191,11 @@ config.TOOLS = [
     // visible: false,
     attributes: {
       size: 4,
+      quick:{
+        small: 2,
+        medium: 5,
+        large: 8
+      },
     },
   },
   {
@@ -202,6 +212,11 @@ config.TOOLS = [
         min: 0,
       },
       square: false,
+      quick:{
+        small: 2,
+        medium: 5,
+        large: 8
+      },
     },
   },
   {
@@ -233,6 +248,11 @@ config.TOOLS = [
       fill: false,
       border_color: "#ec1c24",
       fill_color: "#aaaaaa",
+      quick:{
+        small: 2,
+        medium: 5,
+        large: 8
+      },
     },
   },
   {
@@ -380,6 +400,11 @@ config.TOOLS = [
     // visible: false,
     attributes: {
       size: 4,
+      quick:{
+        small: 2,
+        medium: 5,
+        large: 8
+      },
     },
   },
   {

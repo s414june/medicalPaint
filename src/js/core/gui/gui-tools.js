@@ -384,11 +384,15 @@ class GUI_tools_class {
         itemDom.appendChild($colorInput[0]);
       } else if (typeof item == "object" && k === "quick") {
         //quick
+        var elementTitle = document.createElement("label");
+        elementTitle.innerHTML = "Size: ";
+        elementTitle.for = k;
+        itemDom.appendChild(elementTitle);
         Object.keys(item).forEach((key) => {
-          var elementTitle = document.createElement("div");
-          elementTitle.classList = key + " quick_type";
+          var elementCircle = document.createElement("div");
+          elementCircle.classList = key + " quick_type";
           let _item = item;
-          elementTitle.addEventListener("click", function (e) {
+          elementCircle.addEventListener("click", function (e) {
             const $el = $($(e.target).parents(".attributes")[0]).find(
               ".ui_number_input"
             );
@@ -399,7 +403,7 @@ class GUI_tools_class {
             $el.children("input").val(_item[key]);
 			$el.children("input").trigger("input");
           });
-          itemDom.appendChild(elementTitle);
+          itemDom.appendChild(elementCircle);
 		  $(".quick_type.small").click();
         });
       } else {

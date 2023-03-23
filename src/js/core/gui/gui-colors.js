@@ -443,6 +443,7 @@ class GUI_colors_class {
     }
 
     // Update all inputs from config.COLOR
+    // $('#color_swatches').data('init',true);
     for (let i = 0; i < 21; i++) {
       if ($(".swatch_group .swatch")[i]&&config.swatches.default[i]) {
         $(".swatch_group .swatch")[i].click();
@@ -450,6 +451,7 @@ class GUI_colors_class {
       } else break;
 	  $(".swatch_group .swatch")[0].click();
     }
+    // $('#color_swatches').data('init',false);
   }
 
   /**

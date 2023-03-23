@@ -124,8 +124,8 @@ import _config from './../../config.js';
 					swatch.classList.add('swatch');
 					if(_config.swatches.default[i])
 						$(swatch).data('hex', _config.swatches.default[i]);
-					// else
-					// 	$(swatch).data('hex', '#ffffff');
+					else
+						$(swatch).data('hex', '#ffffff');
 					swatches.push(swatch);
 					swatchGroup.appendChild(swatch);
 					if (i === selectedIndex && !readonly) {
