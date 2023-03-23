@@ -160,9 +160,12 @@ class Base_selection_class {
 	 * marks object as selected, and draws corners
 	 */
 	draw_selection() {
+		//禁止選取圖片
+		if(config.layer.type==="image") return;
 		var settings = this.find_settings();
 		var data = settings.data;
-
+		//不要自動選取
+		if(!settings.enable_move) return;
 		if (settings.data === null || settings.data.status == 'draft'
 			|| (settings.data.hide_selection_if_active === true && settings.data.type == config.TOOL.name)) {
 			return;
@@ -357,6 +360,8 @@ class Base_selection_class {
 	}
 
 	selected_object_actions(e) {
+		//禁止選取圖片
+		if(config.layer.type==="image") return;
 		var settings = this.find_settings();
 		var data = settings.data;
 

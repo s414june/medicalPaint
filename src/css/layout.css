@@ -435,9 +435,9 @@ IMPORTANT: any new icon should also must be added on /service-worker.js + its ve
 }
 
 /* layers */
-.layers_list {
+/* .layers_list {
   margin-top: 10px;
-}
+} */
 .layers_arrow {
   display: inline-block;
   float: right;
@@ -909,14 +909,6 @@ canvas {
   display: none !important;
 }
 
-/* .border,
-.fill,
-.fill_color,
-.radius,
-.square {
-  display: none !important;
-} */
-/* 
-#popups{
-  display: none !important;
-} */
+#layers_base > button {
+  display: none;
+}

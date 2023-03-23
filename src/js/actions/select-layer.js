@@ -21,6 +21,8 @@ export class Select_layer_action extends Base_action {
 
 		let old_layer = config.layer;
 		let new_layer = app.Layers.get_layer(this.layer_id);
+		//禁止選取圖片
+		if(new_layer.type==="image") return;
 
 		if (old_layer !== new_layer) {
 			this.old_layer = old_layer;
