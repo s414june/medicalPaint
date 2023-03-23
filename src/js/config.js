@@ -101,7 +101,11 @@ config.TOOLS = [
     name: "select",
     title: "Select object tool",
     attributes: {
-      auto_select: true,
+      // auto_select: true,
+      auto_select: {
+        value:true,
+        icon:`auto_select.svg`
+      }
     },
   },
   // {

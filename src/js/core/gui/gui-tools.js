@@ -180,7 +180,6 @@ class GUI_tools_class {
         (typeof item == "object" && typeof item.value == "boolean")
       ) {
         //boolean - true, false
-
         let value = item;
         let icon = null;
         if (typeof item == "object") {
@@ -198,6 +197,8 @@ class GUI_tools_class {
         element.setAttribute("aria-pressed", value);
         if (icon) {
           element.classList.add("ui_icon_button");
+          //增加勾勾和叉叉
+          element.classList.add("ui_toggle_button");
           element.classList.add("input_height");
           element.innerHTML = icon;
           element.title = k;

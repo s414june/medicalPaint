@@ -904,11 +904,13 @@ canvas {
 .leading,
 .fill_color,
 .radius,
-.square,
-.ui_toggle_button {
+.square {
   display: none !important;
 }
 
 #layers_base > button {
   display: none;
+}
+.ui_toggle_button {
+  font-size: 1.6rem;
 }

@@ -13,6 +13,7 @@
   --header-background-color: #373d3f;
   --button-background-color: #2f3739;
   --button-background-color-hover: #75df72;
+  --button-background-color-hover-rgb: 117, 223, 114;
   --button-background-color-active: #4d5153;
   --button-shadow-color: rgba(0, 0, 0, 0.3);
   --button-text-color-active: #adecab;
@@ -203,9 +204,13 @@ button[aria-pressed="true"],
 input[type="button"][aria-pressed="true"] {
   background-color: var(--button-background-color-active);
   color: var(--button-text-color-active);
-  box-shadow: 0 1px 2px 0 var(--button-shadow-color),
+  /* box-shadow: 0 1px 2px 0 var(--button-shadow-color),
     0 1px 1px 1.5px rgba(58, 40, 40, 0.1) inset,
-    0 -1px 0 0 var(--button-text-color-active) inset;
+    0 -1px 0 0 var(--button-text-color-active) inset; */
+    box-shadow: 0 1px 2px 0 var(--button-shadow-color),
+    0 1px 1px 1.5px rgba(58, 40, 40, 0.1) inset,
+    0 -2px 0 0 var(--button-text-color-active) inset;
+    /* background-color: rgba(var(--button-background-color-hover-rgb), 0.5); */
 }
 button[aria-pressed="true"]:hover,
 input[type="button"][aria-pressed="true"]:hover {
