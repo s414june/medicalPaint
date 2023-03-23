@@ -203,7 +203,7 @@ class GUI_tools_class {
           element.innerHTML = icon;
           element.title = k;
           element.innerHTML =
-            '<img style="width:16px;height:16px;" alt="' +
+            '<img style="width:25px;height:25px;" alt="' +
             title +
             '" src="images/icons/' +
             icon +

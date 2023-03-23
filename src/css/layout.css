@@ -861,11 +861,19 @@ canvas {
   position: relative;
   height: 2rem;
 }
-.medical_name > * {
+.medical_name > *,
+.medical_uuid > * {
+  font-size: 1.6rem;
+}
+.medical_name > *{
   position: absolute;
-  left: 0;
+  left: 3px;
   font-size: 1.6rem;
   width: 100vw;
+}
+.medical_uuid > * {
+  position: absolute;
+  right: 3px;
 }
 /* .item.quick{
 	align-items: flex-end;

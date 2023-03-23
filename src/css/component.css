@@ -239,7 +239,8 @@
 }
 
 .ui_icon_button.input_height {
-    height: 2.4rem;
+    /* height: 2.4rem; */
+    height: 3rem;
     line-height: 2.4rem;
 }
 
@@ -250,6 +251,7 @@
 .ui_icon_button > img {
     display: block;
     margin: 0 auto;
+    transform: translateY(-1px);
 }
 button img{
     filter: var(--menu-icons-filter);

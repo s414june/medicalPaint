@@ -74,6 +74,7 @@ class Base_gui_class {
     this.load_default_values();
     this.render_main_gui();
     this.init_service_worker();
+    $("#medical_uuid span").text(localStorage.getItem("medical_uuid"));
   }
 
   load_modules() {
