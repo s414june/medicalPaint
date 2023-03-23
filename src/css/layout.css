@@ -391,7 +391,8 @@ IMPORTANT: any new icon should also must be added on /service-worker.js + its ve
   flex-direction: column;
   transition: 0.2s;
   overflow-x: hidden;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
+  overflow-y: auto;
   margin: 0 5px;
   width: 200px;
 }
