@@ -420,7 +420,8 @@ class Base_tools_class {
 			render_function: [this.name, 'render'],
 			x: Math.round(mouse_x),
 			y: Math.round(mouse_y),
-			color: null,
+			// color: null,
+			color: config.COLOR,
 			is_vector: true
 		};
 		app.State.do_action(

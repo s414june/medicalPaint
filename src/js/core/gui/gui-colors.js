@@ -334,7 +334,7 @@ class GUI_colors_class {
     // if (saved_toggle_color_picker === 0) {
     //   this.buttons.toggleColorPicker.trigger("click");
     // }
-	this.buttons.toggleColorPicker.trigger("click");
+    this.buttons.toggleColorPicker.trigger("click");
 
     // Handle toggle for color channels section
     this.buttons.toggleColorChannels.on("click", () => {
@@ -445,11 +445,14 @@ class GUI_colors_class {
     // Update all inputs from config.COLOR
     // $('#color_swatches').data('init',true);
     for (let i = 0; i < 21; i++) {
-      if ($(".swatch_group .swatch")[i]&&config.swatches.default[i]) {
-        $(".swatch_group .swatch")[i].click();
-        this.render_selected_color();
+      if ($(".swatch_group .swatch")[i] && config.swatches.default[i]) {
+        if($($(".swatch_group .swatch")[i]).data("init")){
+          $(".swatch_group .swatch")[i].click();
+          this.render_selected_color();
+          $($(".swatch_group .swatch")[i]).removeData("init");
+        }
       } else break;
-	  $(".swatch_group .swatch")[0].click();
+      $(".swatch_group .swatch")[0].click();
     }
     // $('#color_swatches').data('init',false);
   }
@@ -470,7 +473,7 @@ class GUI_colors_class {
     let hsv = null;
     // Set new color by hex code
     if ("hex" in definition) {
-	  definition.hex = definition.hex || "#ffffff";
+      definition.hex = definition.hex || "#ffffff";
       const hex = "#" + definition.hex.replace(/[^0-9A-F]*/gi, "");
       if (/^\#[0-9A-F]{6}$/gi.test(hex)) {
         newColor = "#" + definition.hex.trim().replace(/^\#/, "");
