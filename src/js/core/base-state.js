@@ -151,7 +151,6 @@ class Base_state_class {
   async undo_action() {
     if (this.can_undo()) {
       if (!$("#clear_button").data("can_undo"))
-        $("#clear_button").data("can_undo", true);
       this.action_history_index--;
       await this.action_history[this.action_history_index].undo();
     } else {

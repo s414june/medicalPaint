@@ -35,6 +35,7 @@ class Edit_undo_class {
       .addEventListener("click", function (event) {
         const count = _this.Base_state.action_history.length - 1;
         $("#clear_button").data("active", true);
+        $("#clear_button").data("can_undo", true);
         for (let i = count; i >= 0; i--) {
           let now_history = _this.Base_state.action_history[i];
           if (now_history.action_id === "open_file_url") break;
