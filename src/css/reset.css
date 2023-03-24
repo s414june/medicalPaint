@@ -113,6 +113,39 @@ body.theme-green {
   --mobile-menu-toggle-filter: invert(1);
 }
 
+body.theme-blue {
+  /* green */
+  --background: #02131a;
+  --text-color: #ffffff;
+  --text-color-muted: #bbbbbb;
+  --link-color: #ffffff;
+  --section-background-color: #114c61;
+  --area-background-color: #396d80;
+  --block-background-color: #114c61;
+  --header-background-color: #1f637e;
+  --button-background-color: #1f637e;
+  --button-background-color-hover: #2c83a5;
+  --button-background-color-active: #2c83a5;
+  --button-text-color-active: #ffffff;
+  --button-toggle-background-color: #1f637e;
+  --button-toggle-background-color-hover: #1f637e;
+  --input-background-color: #ffffff;
+  --input-background-color-hover: #ddd;
+  --input-text-color: #02131a;
+  --input-border-color: #ccc;
+  --menu-background-color: #124b61;
+  --menu-icons-filter: invert(1);
+  --menu-icons-filter-active: invert(1);
+  --menu-text-color: #e7e7e7;
+  --background-color-active: #379ac2;
+  --background-color-hover: #2c83a5;
+  --text-color-active: #f1f1f1;
+  --border-color: #124b61;
+  --scrollbar-track-color: #082631;
+  --scrollbar-thumb-color: #80937d;
+  --mobile-menu-toggle-filter: invert(1);
+}
+
 * {
   box-sizing: border-box;
   background-repeat: no-repeat;

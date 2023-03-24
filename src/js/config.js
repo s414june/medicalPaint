@@ -53,7 +53,7 @@ config.guides = [];
 config.ruler_active = false;
 
 //requires styles in reset.css
-config.themes = ["dark", "light", "green"];
+config.themes = ["blue", "light", "green", "dark"];
 
 //no-translate BEGIN
 config.FONTS = [
@@ -103,9 +103,9 @@ config.TOOLS = [
     attributes: {
       // auto_select: true,
       auto_select: {
-        value:true,
-        icon:`auto_select.svg`
-      }
+        value: true,
+        icon: `auto_select.svg`,
+      },
     },
   },
   // {
@@ -117,10 +117,10 @@ config.TOOLS = [
     name: "brush",
     attributes: {
       size: 10,
-      quick:{
+      quick: {
         small: 10,
         medium: 20,
-        large: 30
+        large: 30,
       },
       pressure: true,
     },
@@ -129,10 +129,10 @@ config.TOOLS = [
     name: "pencil",
     attributes: {
       size: 1,
-      quick:{
+      quick: {
         small: 1,
         medium: 2,
-        large: 3
+        large: 3,
       },
       pressure: true,
     },
@@ -183,10 +183,10 @@ config.TOOLS = [
     // visible: false,
     attributes: {
       size: 4,
-      quick:{
+      quick: {
         small: 2,
         medium: 5,
-        large: 8
+        large: 8,
       },
     },
   },
@@ -195,10 +195,10 @@ config.TOOLS = [
     // visible: false,
     attributes: {
       size: 4,
-      quick:{
+      quick: {
         small: 2,
         medium: 5,
-        large: 8
+        large: 8,
       },
     },
   },
@@ -216,10 +216,10 @@ config.TOOLS = [
         min: 0,
       },
       square: false,
-      quick:{
+      quick: {
         small: 2,
         medium: 5,
-        large: 8
+        large: 8,
       },
     },
   },
@@ -252,10 +252,10 @@ config.TOOLS = [
       fill: false,
       border_color: "#ec1c24",
       fill_color: "#aaaaaa",
-      quick:{
+      quick: {
         small: 2,
         medium: 5,
-        large: 8
+        large: 8,
       },
     },
   },
@@ -404,10 +404,10 @@ config.TOOLS = [
     // visible: false,
     attributes: {
       size: 4,
-      quick:{
+      quick: {
         small: 2,
         medium: 5,
-        large: 8
+        large: 8,
       },
     },
   },

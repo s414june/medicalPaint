@@ -204,7 +204,7 @@ class Brush_class extends Base_tools_class {
 
 		var params_hash = this.get_params_hash();
 
-		if (config.layer.type != this.name || params_hash != this.params_hash) {
+		if (config.layer.type != this.name || params_hash != this.params_hash || config.layer.color!=config.COLOR) {
 			//register new object - current layer is not ours or params changed
 			this.layer = {
 				type: this.name,

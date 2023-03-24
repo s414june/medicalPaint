@@ -62,7 +62,6 @@ window.addEventListener(
       const short = require("short-uuid");
       uuid = short.generate();
       this.localStorage.setItem("medical_uuid", uuid);
-	  $("#medical_uuid span").text(this.localStorage.getItem("medical_uuid"));
     }
   },
   false

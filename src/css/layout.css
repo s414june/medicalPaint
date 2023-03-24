@@ -886,7 +886,7 @@ canvas {
 .quick_type {
   width: 24px;
   height: 24px;
-  background-color: #aaaaaa;
+  background-color: var(--text-color-muted);
   border-radius: 30px;
 }
 .quick_type.small {
