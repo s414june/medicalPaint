@@ -169,15 +169,15 @@ config.TOOLS = [
   // 		contiguous: false,
   // 	},
   // },
-  {
-    name: "shape",
-    on_activate: "on_activate",
-    title: "Shapes (H)",
-    attributes: {
-      size: 3,
-      stroke: "#00aa00",
-    },
-  },
+  // {
+  //   name: "shape",
+  //   on_activate: "on_activate",
+  //   title: "Shapes (H)",
+  //   attributes: {
+  //     size: 3,
+  //     stroke: "#00aa00",
+  //   },
+  // },
   {
     name: "line",
     // visible: false,
@@ -495,6 +495,14 @@ config.TOOLS = [
           },
           {
             title: "你好",
+            class:[]
+          },
+          {
+            title: "ABC",
+            class:[]
+          },
+          {
+            title: "123",
             class:[]
           },
         ],
