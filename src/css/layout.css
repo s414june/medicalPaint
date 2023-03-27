@@ -772,7 +772,7 @@ canvas {
   flex-wrap: wrap;
 }
 .flex-container .item {
-  flex: auto;
+  /* flex: auto; */
   margin: 2px 0;
   width: 150px;
 }
@@ -786,6 +786,11 @@ canvas {
 .effectsPreview {
   cursor: pointer;
   background-color: #ddd;
+  color: var(--block-background-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
 }
 
 @media screen and (max-width: 550px) {

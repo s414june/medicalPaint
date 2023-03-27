@@ -9,7 +9,7 @@ config.WIDTH = null;
 config.HEIGHT = null;
 config.visible_width = null;
 config.visible_height = null;
-config.COLOR = "#008000";
+config.COLOR = "#ec1c24";
 config.ALPHA = 255;
 config.ZOOM = 1;
 config.SNAP = true;
@@ -169,15 +169,15 @@ config.TOOLS = [
   // 		contiguous: false,
   // 	},
   // },
-  // {
-  //   name: "shape",
-  //   on_activate: "on_activate",
-  //   title: "Shapes (H)",
-  //   attributes: {
-  //     size: 3,
-  //     stroke: "#00aa00",
-  //   },
-  // },
+  {
+    name: "shape",
+    on_activate: "on_activate",
+    title: "Shapes (H)",
+    attributes: {
+      size: 3,
+      stroke: "#00aa00",
+    },
+  },
   {
     name: "line",
     // visible: false,
@@ -435,6 +435,7 @@ config.TOOLS = [
   },
   {
     name: "text",
+    on_activate: "on_activate",
     on_update: "on_params_update",
     attributes: {
       font: {
@@ -485,6 +486,18 @@ config.TOOLS = [
         min: -999,
         max: 999,
         step: 1,
+      },
+      default: {
+        content: [
+          {
+            title: "哈囉",
+            class:[]
+          },
+          {
+            title: "你好",
+            class:[]
+          },
+        ],
       },
     },
   },
