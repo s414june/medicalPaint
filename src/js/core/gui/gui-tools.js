@@ -140,6 +140,8 @@ class GUI_tools_class {
     var target_id = "action_attributes";
 
     const itemContainer = document.getElementById(target_id);
+    itemContainer.className = "block attributes";
+    itemContainer.classList.add("active_tool_is_" + _this.active_tool);
 
     itemContainer.innerHTML = "";
 
@@ -397,15 +399,18 @@ class GUI_tools_class {
             const $el = $($(e.target).parents(".attributes")[0]).find(
               ".ui_number_input"
             );
-			$(e.target).parent().children().each((i,v)=>{
-				$(v).removeClass("active");
-			})
-			$(e.target).addClass("active");
+            $(e.target)
+              .parent()
+              .children()
+              .each((i, v) => {
+                $(v).removeClass("active");
+              });
+            $(e.target).addClass("active");
             $el.children("input").val(_item[key]);
-			$el.children("input").trigger("input");
+            $el.children("input").trigger("input");
           });
           itemDom.appendChild(elementCircle);
-		  $(".quick_type.small").click();
+          $(".quick_type.small").click();
         });
       } else {
         alertify.error(

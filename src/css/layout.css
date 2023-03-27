@@ -790,7 +790,7 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
+  font-size: 2.5rem;
 }
 
 @media screen and (max-width: 550px) {
@@ -909,7 +909,7 @@ canvas {
 }
 .border,
 .fill,
-.size,
+#action_attributes:not(.active_tool_is_text) .size,
 .border_color,
 .border_size,
 .stroke,
@@ -918,7 +918,8 @@ canvas {
 .leading,
 .fill_color,
 .radius,
-.square {
+.square,
+.default {
   display: none !important;
 }
 

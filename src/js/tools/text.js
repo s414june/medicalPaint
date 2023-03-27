@@ -3121,7 +3121,7 @@ class Text_class extends Base_tools_class {
     var list = [];
 
     let textDefault = config.TOOLS.find((tool) => tool.name === "text")
-      .attributes.default.content;
+      .default.content;
 
     return textDefault;
   }

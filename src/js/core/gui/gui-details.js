@@ -1,3 +1,4 @@
+// @ts-nocheck
 /*
  * miniPaint - https://github.com/viliusle/miniPaint
  * author: Vilius L.

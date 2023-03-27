@@ -451,7 +451,7 @@ config.TOOLS = [
           ];
         },
       },
-      size: 40,
+      size: 25,
       bold: {
         value: false,
         icon: `bold.svg`,
@@ -487,26 +487,26 @@ config.TOOLS = [
         max: 999,
         step: 1,
       },
-      default: {
-        content: [
-          {
-            title: "哈囉",
-            class:[]
-          },
-          {
-            title: "你好",
-            class:[]
-          },
-          {
-            title: "ABC",
-            class:[]
-          },
-          {
-            title: "123",
-            class:[]
-          },
-        ],
-      },
+    },
+    default: {
+      content: [
+        {
+          title: "哈囉",
+          class:[]
+        },
+        {
+          title: "你好",
+          class:[]
+        },
+        {
+          title: "ABC",
+          class:[]
+        },
+        {
+          title: "123",
+          class:[]
+        },
+      ]
     },
   },
   // {
