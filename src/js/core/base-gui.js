@@ -17,6 +17,7 @@ import Tools_settings_class from "./../modules/tools/settings.js";
 import Helper_class from "./../libs/helpers.js";
 import alertify from "./../../../node_modules/alertifyjs/build/alertify.min.js";
 import menuDefinition from "./../config-menu.js";
+import status from "./../change-status.js";
 
 var instance = null;
 
@@ -226,6 +227,8 @@ class Base_gui_class {
         (c) => c.target === "file/save.save_data_url"
       );
       _this.GUI_menu.emit("select_target", save_url.target, save_url);
+      //
+      status.setWorkspaceStatus("saved");
     });
     window.addEventListener(
       "resize",

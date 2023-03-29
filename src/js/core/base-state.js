@@ -9,6 +9,7 @@ import Base_gui_class from "./base-gui.js";
 import Helper_class from "./../libs/helpers.js";
 import alertify from "./../../../node_modules/alertifyjs/build/alertify.min.js";
 import app from "../app.js";
+import status from "./../change-status.js";
 
 var instance = null;
 
@@ -60,6 +61,8 @@ class Base_state_class {
   }
 
   async do_action(action, options = {}) {
+    status.setWorkspaceStatus("editing");
+
     let error_during_free = false;
     try {
       await action.do();
@@ -156,6 +159,9 @@ class Base_state_class {
       if ($("#clear_button").data("active"))
         return $("#clear_button").data("can_undo", false);
       alertify.success("There's nothing to undo", 3);
+    }
+    if (this.action_history_index === 0) {
+      status.setWorkspaceStatus("init");
     }
   }
 

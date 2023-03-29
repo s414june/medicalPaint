@@ -16,7 +16,6 @@ import app from "../app.js";
 // import alertify from "alertifyjs/build/alertify.min.js";
 // import menuDefinition from "../config-menu.js";
 
-
 /**
  * Main GUI class
  */
@@ -28,36 +27,28 @@ class Base_tab_class {
     this.index = "";
   }
 
-  init(){
-    let _this = this;
-    $("#import").click(function(){
-      _this.create_tab();
-    })
-  }
-
-  create_tab() {
-    let index = $(".tab").length;
+  create_tab(tabSEQ) {
+    let index = tabSEQ;
     this.index = index;
-    let tab = `<div class="tab" id="tab_${index}">tab_${index}</div>`;
+    let tab = `<div class="tab" id="tab_${index}">
+      tab_${index}
+      <span>x</span>
+    </div>`;
     $("#tab_place").append(tab);
-    let iframe = `<iframe src="./paint.html" frameborder="0" id="iframe_${index}"></iframe>`;
+    let iframe = `<iframe src="./paint.html?iframe=${index}" frameborder="0" id="iframe_${index}"></iframe>`;
     $("#iframe_place").append(iframe);
     this.tab = $(`#tab_${index}`).get(0);
     this.iframe = $(`#iframe_${index}`).get(0);
 
-    let _this = this;
-    this.tab.onclick = function () {
-      _this.active_tab();
-    };
+    let workspaceData = sessionStorage.getItem("workspace");
+    let workspace = {};
+    if(workspaceData){
+      workspace = JSON.parse(workspaceData);
+    }
+    workspace["workspace_"+this.index] = "init";
+    sessionStorage.setItem("workspace",JSON.stringify(workspace));
   }
 
-  active_tab() {
-    console.log(this)
-    $(".tab.active").removeClass("active");
-    $(this.tab).addClass("active");
-    $("iframe.active").removeClass("active");
-    $(this.iframe).addClass("active");
-  }
 }
 
 export default Base_tab_class;

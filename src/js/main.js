@@ -37,6 +37,7 @@ window.addEventListener(
       }
       let vh = window.innerHeight / 100;
       document.documentElement.style.setProperty("--vh", vh + "px");
+      sessionStorage.setItem("workspace","{}");
 
       var Base_workspace = new Base_workspace_class();
       Base_workspace.init();

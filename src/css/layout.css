@@ -944,8 +944,7 @@ canvas {
   position: relative;
   margin: 0 2px;
 }
-.tab::after{
-  content: "x";
+.tab>span{
   position: absolute;
   right: 10px;
   font-size: 1.5rem;
