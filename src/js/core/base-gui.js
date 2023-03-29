@@ -208,17 +208,17 @@ class Base_gui_class {
       .addEventListener("click", function (event) {
         document.querySelector(".sidebar_right").classList.toggle("active");
       });
-    document
-      .getElementById("import")
-      .addEventListener("click", function (event) {
-        let children = menuDefinition;
-        let file = children.find((c) => c.name === "File");
-        let open = file.children.find((c) => c.name === "Open");
-        let open_url = open.children.find(
-          (c) => c.target === "file/open.open_url"
-        );
-        _this.GUI_menu.emit("select_target", open_url.target, open_url);
-      });
+    // document
+    //   .getElementById("import")
+    //   .addEventListener("click", function (event) {
+    //     let children = menuDefinition;
+    //     let file = children.find((c) => c.name === "File");
+    //     let open = file.children.find((c) => c.name === "Open");
+    //     let open_url = open.children.find(
+    //       (c) => c.target === "file/open.open_url"
+    //     );
+    //     _this.GUI_menu.emit("select_target", open_url.target, open_url);
+    //   });
     document.getElementById("save").addEventListener("click", function (event) {
       let children = menuDefinition;
       let file = children.find((c) => c.name === "File");

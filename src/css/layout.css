@@ -149,10 +149,11 @@ body .sp-preview {
 .logo {
   position: relative;
   display: inline-block;
-  height: 30px;
-  width: 36px;
-  padding: 7px;
-  margin: 3px;
+  height: 100%;
+  width: 40px;
+  /* padding: 7px; */
+  /* margin: 3px; */
+  /* margin-left: 0; */
   /* margin-right: 10px; */
   font-size: 14px;
   text-decoration: none;
@@ -166,10 +167,10 @@ body .sp-preview {
   content: "";
   left: 0;
   top: 0;
-  width: 33px;
-  height: 30px;
+  width: 40px;
+  height: 100%;
   background: url("images/logo.jpg") no-repeat center center;
-  background-size: auto 25px;
+  background-size: auto 30px;
   /* filter: var(--mobile-menu-toggle-filter); */
 }
 /* .logo:hover:after {
@@ -871,7 +872,7 @@ canvas {
 .medical_uuid > * {
   font-size: 1.6rem;
 }
-.medical_name > *{
+.medical_name > * {
   position: absolute;
   left: 3px;
   font-size: 1.6rem;
@@ -928,4 +929,25 @@ canvas {
 }
 .ui_toggle_button {
   font-size: 1.6rem;
+}
+
+#tab_place{
+  display: flex;
+  z-index: 1000;
+}
+
+.tab {
+  background-color: var(--area-background-color);
+  width: 150px;
+  padding: 5px 10px;
+  border-radius: 5px 5px 0 0;
+  position: relative;
+  margin: 0 2px;
+}
+.tab::after{
+  content: "x";
+  position: absolute;
+  right: 10px;
+  font-size: 1.5rem;
+  line-height: 1;
 }

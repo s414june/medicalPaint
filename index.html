@@ -32,125 +32,97 @@
 	<script src="dist/bundle.js"></script>
 </head>
 
-<body>
-	<div class="wrapper">
-
-		<nav aria-label="Main Menu" class="main_menu d-none" id="main_menu"></nav>
-
-		<div class="submenu">
-			<!-- <a class="logo" href="#">miniPaint</a> -->
-			<a class="logo" href="#"></a>
-			<div class="block attributes" id="action_attributes">
-			</div>
-			<!-- <button class="undo_button" id="undo_button" type="button">
-				<span class="sr_only">Undo</span>
-			</button> -->
-			<button class="quick_btn" id="undo_button" type="button">
-				<span>Undo</span>
-			</button>
-			<button class="quick_btn" id="redo_button" type="button">
-				<span>Redo</span>
-			</button>
-			<button class="quick_btn" id="clear_button" type="button">
-				<span>Clear</span>
-			</button>
+<body class="theme-blue">
+	<header>
+		<a class="logo" href="#"></a>
+		<span id="qrcode" title="Scan QR Code" class="qrcode tool"></span>
+		<span id="import" title="Import file" class="import tool"></span>
+		<div class="tab_place" id="tab_place">
+			<!-- <div class="tab" id="tab_0">tab_0</div> -->
 		</div>
-
-		<div class="sidebar_left" id="tools_container">
-			<span id="qrcode" title="Scan QR Code" class="item trn qrcode"></span>
-			<span id="import" title="Import file" class="item trn import"></span>
-			<span id="save" title="Save file" class="item trn save"></span>
-		</div>
-
-
-		<div class="middle_area" id="middle_area">
-
-			<canvas class="ruler_left" id="ruler_left"></canvas>
-			<canvas class="ruler_top" id="ruler_top"></canvas>
-
-			<div class="main_wrapper" id="main_wrapper">
-				<div class="canvas_wrapper" id="canvas_wrapper">
-					<div id="mouse"></div>
-					<div class="transparent-grid" id="canvas_minipaint_background"></div>
-					<canvas id="canvas_minipaint">
-						<div class="trn error">
-							Your browser does not support canvas or JavaScript is not enabled.
-						</div>
-					</canvas>
-				</div>
-			</div>
-		</div>
-
-		<div class="sidebar_right">
-			<div class="preview block">
-				<h2 class="trn toggle" data-target="toggle_preview">Preview</h2>
-				<div id="toggle_preview"></div>
-			</div>
-
-			<div class="colors block">
-				<h2 class="trn toggle" data-target="toggle_colors">Colors</h2>
-				<div class="content" id="toggle_colors"></div>
-			</div>
-
-			<div class="block d-none" id="info_base">
-				<h2 class="trn toggle toggle-full" data-target="toggle_info">Information</h2>
-				<div class="content" id="toggle_info"></div>
-			</div>
-
-			<div class="details block d-none" id="details_base">
-				<h2 class="trn toggle toggle-full" data-target="toggle_details">Layer details</h2>
-				<div class="content details-content" id="toggle_details"></div>
-			</div>
-
-			<div class="layers block">
-				<h2 class="trn">Layers</h2>
-				<div class="content" id="layers_base"></div>
-			</div>
-		</div>
-		<div class="medical_name" id="medical_name">
-			<div>
-				病歷號:
-				<span>123456789</span>
-			</div>
-		</div>
-		<div></div>
-		<div class="medical_uuid" id="medical_uuid">
-			<div>
-				設備編號:
-				<span>123456789</span>
-			</div>
-		</div>
-	</div>
-	<div class="mobile_menu">
-		<button class="left_mobile_menu d-none" id="left_mobile_menu_button" type="button">
-			<span class="sr_only">Toggle Menu</span>
-		</button>
-		<button class="right_mobile_menu" id="mobile_menu_button" type="button">
-			<span class="sr_only">Toggle Menu</span>
-		</button>
-	</div>
-	<div class="hidden" id="tmp"></div>
-	<div id="popups"></div>
+	</header>
+	<section class="iframe_place" id="iframe_place">
+		<!-- <iframe src="./paint.html" frameborder="0" id="iframe_0"></iframe> -->
+	</section>
 </body>
 <script>
-	// document.addEventListener('touchstart', function (event) {
-	// 	console.log(event.target)
-	// 	if (event.touches.length >= 2) {
-	// 		event.preventDefault();
-	// 	}
-	// })
-
-	// document.addEventListener('touchmove', function (event) {
-	// 	if (event.touches.length >= 2) {
-	// 		event.preventDefault();
-	// 	}
-	// })
-
-	// document.addEventListener('touchend', function (event) {
-	// 	if (event.touches.length >= 2) {
-	// 		event.preventDefault();
-	// 	}
-	// }) 
+	window.NAME = "index";
 </script>
+<style>
+	:root {
+		--vh: 1vh;
+	}
+
+	header {
+		height: 40px;
+		display: flex;
+		align-items: center;
+		position: relative;
+	}
+
+	.tool {
+		position: relative;
+		display: block;
+		width: 40px;
+		height: 100%;
+		padding: 2.5px;
+	}
+
+	.tool::after {
+		position: absolute;
+		content: "";
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		filter: var(--menu-icons-filter);
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: 25px 30px;
+		cursor: pointer;
+	}
+
+	.qrcode:after {
+		background-image: url("images/icons/qrcode.svg");
+	}
+
+	.import:after {
+		background-image: url("images/icons/import.svg");
+	}
+
+	.iframe_place {
+		position: relative;
+		width: 100vw;
+		height: calc(var(--vh)*100 - 33px);
+	}
+
+	iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		visibility: hidden;
+	}
+
+	.tab_place {
+		position: relative;
+		display: flex;
+		height: 100%;
+		align-items: end;
+	}
+
+	.tab {
+		cursor: pointer;
+	}
+
+	.tab.active {
+		background-color: var(--background-color-active);
+	}
+
+	iframe.active {
+		visibility: visible;
+	}
+</style>
 
 </html>

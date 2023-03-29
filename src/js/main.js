@@ -23,10 +23,26 @@ import Base_search_class from "./core/base-search.js";
 import File_open_class from "./modules/file/open.js";
 import File_save_class from "./modules/file/save.js";
 import * as Actions from "./actions/index.js";
+import Base_workspace_class from "./core/base-workspace.js";
 
 window.addEventListener(
   "load",
   function (e) {
+    if (window.NAME === "index") {
+      let uuid = this.localStorage.getItem("medical_uuid");
+      if (!uuid) {
+        const short = require("short-uuid");
+        uuid = short.generate();
+        this.localStorage.setItem("medical_uuid", uuid);
+      }
+      let vh = window.innerHeight / 100;
+      document.documentElement.style.setProperty("--vh", vh + "px");
+
+      var Base_workspace = new Base_workspace_class();
+      Base_workspace.init();
+      return;
+    }
+
     // Initiate app
     var Layers = new Base_layers_class();
     var Base_tools = new Base_tools_class(true);
@@ -56,13 +72,6 @@ window.addEventListener(
     // Render all
     GUI.init();
     Layers.init();
-
-    let uuid = this.localStorage.getItem("medical_uuid");
-    if (!uuid) {
-      const short = require("short-uuid");
-      uuid = short.generate();
-      this.localStorage.setItem("medical_uuid", uuid);
-    }
   },
   false
 );
