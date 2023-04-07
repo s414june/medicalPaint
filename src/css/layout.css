@@ -465,6 +465,7 @@ IMPORTANT: any new icon should also must be added on /service-worker.js + its ve
 }
 .layers_list .item {
   margin-bottom: 2px;
+  display: flex;
 }
 .layers_list .layer_name {
   display: block;
@@ -537,7 +538,7 @@ IMPORTANT: any new icon should also must be added on /service-worker.js + its ve
 }
 .layers_list .visible {
   opacity: 0.4;
-  display: none;
+  /* display: none; */
 }
 .layers_list .delete {
   float: right;
@@ -550,6 +551,7 @@ IMPORTANT: any new icon should also must be added on /service-worker.js + its ve
   background-size: 15px 15px;
   border: none;
   box-shadow: none;
+  order: 5;
 }
 /* filters */
 .layers_list .filters {
